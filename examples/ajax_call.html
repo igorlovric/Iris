@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+        <link href="../src/iris.css" rel="stylesheet">
+        <script src="../src/iris.js"></script>
+        <script src="../src/i18n/iris.i18n.en-US.js"></script>
+
+        <script>
+            function showModal() {
+                Iris.show({
+                    ajaxUrl: 'ajax_call_return_content_1.html',
+                    title: `AJAX Test`,
+                    size: Iris.SIZE_NORMAL,
+                    draggable: true,
+                    buttons: [
+                        {
+                            label: 'Load diferent content',
+                            cssClass: 'btn-success me-auto',
+                            action: function(dialogRef, event) {
+                                dialogRef.loadContent('ajax_call_return_content_2.html')
+                                return false;
+                            }
+
+                        },
+                        {
+                            label: 'Load Error',
+                            cssClass: 'btn-danger me-auto',
+                            action: function(dialogRef, event) {
+                                dialogRef.loadContent('error.html')
+                                return false;
+                            }
+
+                        },
+                        { label: 'Close' }
+                    ],
+                    onContentLoaded: function (dialogRef) {
+                        // Initialize form after content loads
+                        console.log('Fired onContentLoaded event');
+                        const button = dialogRef.getModalBody().querySelector('button');
+                        button.addEventListener('click', () => alert(button.getAttribute('data-title-desc')));
+                    },
+                });
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <button class="btn btn-primary" onclick="showModal();">Show modal</button>
+    </body>
+</html>
