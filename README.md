@@ -36,6 +36,9 @@ This project was inspired by the [bootstrap3-dialog](https://github.com/nakupand
 
 ### 2. Add Iris
 ```html
+<!-- Main Iris CSS -->
+<link href="path/to/iris.css" rel="stylesheet">
+
 <!-- Main Iris library -->
 <script src="path/to/iris.js"></script>
 
