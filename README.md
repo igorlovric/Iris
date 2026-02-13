@@ -1,6 +1,5 @@
 # <p align="center"><img src="logo.svg" alt="Iris Logo" width="200"></p>
 
-# Iris - Documentation
 
 Flexible library for managing modal dialogs in Bootstrap 5 environments. Written in pure Vanilla JavaScript with no external dependencies.
 
