@@ -5,7 +5,7 @@ class Iris {
      */
     static info = {
         name: 'Iris',
-        version: '1.0.1',
+        version: '1.0.2',
         date: '2025-02-14',
         author: 'Igor Lovrić',
         license: 'MIT'
