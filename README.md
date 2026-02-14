@@ -156,7 +156,27 @@ buttons: [
 | `onContentLoaded` | `dialogRef` | Called after AJAX content loads |
 
 ---
+## Global Configuration
 
+Iris supports global configuration that applies to all dialog instances in your application.
+
+Set default options for all dialogs:
+```javascript
+// Configure at app startup
+Iris.defaults.closeOnBackdrop = false;  // All dialogs won't close on backdrop click
+Iris.defaults.centered = true;          // All dialogs will be centered
+Iris.defaults.size = Iris.SIZE_LARGE;   // All dialogs will be large
+// All dialogs created after this will use these defaults
+
+// Individual dialogs can still override
+dialog.show({
+    title: 'Special Dialog',
+    closeOnBackdrop: true  // This one can close on backdrop
+});
+```
+
+See [Global Configuration](#global-configuration) for more details.
+---
 ## Constants
 
 ### Sizes (SIZE)

@@ -10,6 +10,14 @@ class Iris {
         license: 'MIT'
     };
 
+    static defaults = {
+        backdrop: true,
+        keyboard: true,
+        closeOnBackdrop: true,
+        size: Iris.SIZE_NORMAL,
+        type: Iris.TYPE_DEFAULT
+    };
+
     static instances = [];
     static baseZIndex = 1050;
 
@@ -67,11 +75,7 @@ class Iris {
 
     show(options) {
         this.options = {
-            backdrop: true,
-            keyboard: true,
-            closeOnBackdrop: true,
-            size: Iris.SIZE_NORMAL,
-            type: Iris.TYPE_DEFAULT,
+            ...Iris.defaults,
             ...options
         };
 
