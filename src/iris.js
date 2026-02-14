@@ -11,14 +11,6 @@ class Iris {
         license: 'MIT'
     };
 
-    static defaults = {
-        backdrop: true,
-        keyboard: true,
-        closeOnBackdrop: true,
-        size: Iris.SIZE_NORMAL,
-        type: Iris.TYPE_DEFAULT
-    };
-
     static instances = [];
     static baseZIndex = 1050;
 
@@ -42,6 +34,14 @@ class Iris {
     static TYPE_WARNING = 'warning';
     static TYPE_DANGER = 'danger';
     static TYPE_DARK = 'dark';
+
+    static defaults = {
+        backdrop: true,
+        keyboard: true,
+        closeOnBackdrop: true,
+        size: Iris.SIZE_NORMAL,
+        type: Iris.TYPE_DEFAULT
+    };
 
     /**
      * Creates a new Iris dialog instance
