@@ -17,6 +17,7 @@ class Iris {
     static currentLanguage = 'en-US'; // Default language
     static i18n = {};
 
+    // Type constants (dialog size)
     static SIZE_SMALL = 'modal-sm';
     static SIZE_NORMAL = '';
     static SIZE_LARGE = 'modal-lg';
@@ -127,7 +128,6 @@ class Iris {
         const closeButton = this.options.closeButton !== false ?
             `<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="${Iris.t('close')}"></button>` : '';
 
-        // Odabir CSS klase za type
         const headerClass = this.getHeaderClass();
         const textClass = this.getHeaderTextClass();
 
@@ -250,9 +250,9 @@ class Iris {
         if (!header) return;
 
         let isDragging = false;
-        let hasMoved = false; // DODATO: flag da proveravamo da li je bilo pomeranja
+        let hasMoved = false;
         let currentX = 0, currentY = 0, initialX = 0, initialY = 0;
-        let startX = 0, startY = 0; // DODATO: početne koordinate klika
+        let startX = 0, startY = 0;
 
         header.style.cursor = 'move';
         header.style.userSelect = 'none';
@@ -263,7 +263,7 @@ class Iris {
             if (e.type === 'mousedown') {
                 initialX = e.clientX - rect.left;
                 initialY = e.clientY - rect.top;
-                startX = e.clientX; // DODATO: sačuvaj početnu poziciju
+                startX = e.clientX;
                 startY = e.clientY;
             } else if (e.type === 'touchstart') {
                 initialX = e.touches[0].clientX - rect.left;
@@ -273,7 +273,7 @@ class Iris {
             }
 
             isDragging = true;
-            hasMoved = false; // DODATO: resetuj flag
+            hasMoved = false;
         };
 
         const drag = (e) => {
@@ -289,14 +289,12 @@ class Iris {
                 clientY = e.touches[0].clientY;
             }
 
-            // DODATO: Proveri da li je miš pomeren dovoljno (threshold od 5px)
             const deltaX = Math.abs(clientX - startX);
             const deltaY = Math.abs(clientY - startY);
 
             if (!hasMoved && (deltaX > 5 || deltaY > 5)) {
                 hasMoved = true;
 
-                // Sada postavimo fixed pozicioniranje samo kada je zaista započeto pomeranje
                 const rect = dialog.getBoundingClientRect();
                 const currentWidth = dialog.offsetWidth;
 
@@ -304,13 +302,12 @@ class Iris {
                 dialog.style.margin = '0';
                 dialog.style.width = currentWidth + 'px';
 
-                // Postavi trenutnu poziciju
                 dialog.style.left = rect.left + 'px';
                 dialog.style.top = rect.top + 'px';
                 dialog.style.transform = 'none';
             }
 
-            if (!hasMoved) return; // DODATO: ne pomeri dok nije prešao threshold
+            if (!hasMoved) return;
 
             e.preventDefault();
 
@@ -329,7 +326,7 @@ class Iris {
 
         const dragEnd = () => {
             isDragging = false;
-            hasMoved = false; // DODATO: resetuj flag
+            hasMoved = false;
         };
 
         header.addEventListener('mousedown', dragStart);
@@ -433,18 +430,14 @@ class Iris {
 
         let button = null;
 
-        // Check if identifier is a number (index)
         if (typeof identifier === 'number') {
             const buttons = footer.querySelectorAll('button');
             button = buttons[identifier];
         }
-        // Otherwise treat it as an ID string
         else if (typeof identifier === 'string') {
-            // Remove leading '#' if present
             const id = identifier.startsWith('#') ? identifier.slice(1) : identifier;
             button = footer.querySelector(`#${id}`);
 
-            // If not found by ID, try finding by button text/label
             if (!button) {
                 const buttons = footer.querySelectorAll('button');
                 button = Array.from(buttons).find(btn => btn.textContent.trim() === identifier);
@@ -514,7 +507,6 @@ class Iris {
             }
             const closeBtn = header.querySelector('.btn-close');
 
-            // Dodaj nove klase
             this.options.type = type;
             const headerClass = this.getHeaderClass();
             const textClass = this.getHeaderTextClass();
@@ -560,18 +552,14 @@ class Iris {
 
         let button = null;
 
-        // Check if identifier is a number (index)
         if (typeof identifier === 'number') {
             const buttons = footer.querySelectorAll('button');
             button = buttons[identifier];
         }
-        // Otherwise treat it as an ID string
         else if (typeof identifier === 'string') {
-            // Remove leading '#' if present
             const id = identifier.startsWith('#') ? identifier.slice(1) : identifier;
             button = footer.querySelector(`#${id}`);
 
-            // If not found by ID, try finding by button text/label
             if (!button) {
                 const buttons = footer.querySelectorAll('button');
                 button = Array.from(buttons).find(btn => btn.textContent.trim() === identifier);
@@ -610,17 +598,13 @@ class Iris {
 
         let button = null;
 
-        // Check if identifier is a number (index)
         if (typeof identifier === 'number') {
             const buttons = footer.querySelectorAll('button');
             button = buttons[identifier];
         }
-        // Otherwise treat it as an ID string
         else if (typeof identifier === 'string') {
-            // Remove leading '#' if present
             const id = identifier.startsWith('#') ? identifier.slice(1) : identifier;
             button = footer.querySelector(`#${id}`);
-            // If not found by ID, try finding by button text/label
             if (!button) {
                 const buttons = footer.querySelectorAll('button');
                 button = Array.from(buttons).find(btn => btn.textContent.trim() === identifier);
@@ -649,7 +633,6 @@ class Iris {
         const translations = Iris.i18n[lang]?.translations || Iris.i18n['en-US']?.translations || {};
         let text = translations[key] || key;
 
-        // Replace placeholder {0}, {1}, {2}...
         args.forEach((arg, index) => {
             text = text.replace(`{${index}}`, arg);
         });
@@ -693,7 +676,6 @@ class Iris {
         return dialog;
     }
 
-    // Pomoćne statičke metode za česte slučajeve
     static alert(message, title = Iris.t('info'), options = {}) {
         return Iris.show({
             title: title,
