@@ -99,7 +99,7 @@ Each button in the `buttons` array can have the following properties:
 |-------------|------|-------------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | `id`        | string | btn_randomString  | Button Id                                                                                                                             |
 | `label`     | string | *required*        | Button text to display                                                                                                                |
-| `icon`      | string | -                 | Icon class (tested with FontAwesome icon pack)                                                                                        |
+| `icon`      | string | -                 | Icon class (tested with Bootstrap icons & FontAwesome icon pack)                                                                      |
 | `cssClass`  | string | `'btn-secondary'` | Bootstrap button class (e.g., `'btn-primary'`, `'btn-danger'`)                                                                        |
 | `action`    | function | -                 | Callback function when button is clicked. Receives `(dialogRef, event)` as parameters. Return `false` to prevent dialog from closing. |
 | `autoClose` | boolean | `true`            | Automatically close dialog after action completes (if action doesn't return `false`)                                                  |
