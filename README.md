@@ -75,21 +75,21 @@ Iris.show({
 
 ### Basic Options
 
-| Option            | Type        | Default | Description |
-|-------------------|-------------|---------|-------------|
-| `title`           | string      | - | Dialog title |
-| `message`         | string/HTML | - | Dialog content |
-| `size`            | constant    | `SIZE_NORMAL` | Dialog size |
+| Option            | Type        | Default | Description                      |
+|-------------------|-------------|---------|----------------------------------|
+| `title`           | string      | - | Dialog title                     |
+| `message`         | string/HTML | - | Dialog content                   |
+| `size`            | constant    | `SIZE_NORMAL` | Dialog size                      |
 | `type`            | constant    | `TYPE_DEFAULT` | Dialog type/theme (header color) |
-| `buttons`         | array       | - | Array of buttons |
-| `centered`        | boolean     | false | Vertical centering |
-| `scrollable`      | boolean     | false | Enable scrolling within body |
-| `draggable`       | boolean     | false | Enable drag & drop |
-| `backdrop`        | boolean     | true | Show backdrop |
+| `buttons`         | array       | - | Array of buttons                 |
+| `centered`        | boolean     | false | Vertical centering (cannot be used with `draggable`)              |
+| `scrollable`      | boolean     | false | Enable scrolling within body     |
+| `draggable`       | boolean     | false | Enable drag & drop (cannot be used with `centered`)              |
+| `backdrop`        | boolean     | true | Show backdrop                    |
 | `closeOnBackdrop` | boolean     | true | Close dialog by clicking backdrop |
-| `keyboard`        | boolean     | true | Close dialog with ESC key |
-| `closeButton`     | boolean     | true | Show X button in header |
-| `ajaxUrl`         | string      | - | URL for loading content |
+| `keyboard`        | boolean     | true | Close dialog with ESC key        |
+| `closeButton`     | boolean     | true | Show X button in header          |
+| `ajaxUrl`         | string      | - | URL for loading content          |
 
 ### Button Options
 
@@ -321,11 +321,6 @@ onContentLoaded: function(dialogRef) {
     initFormValidation(form);
 }
 ```
-
----
-
-
-
 
 ---
 
