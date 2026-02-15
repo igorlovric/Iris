@@ -5,7 +5,7 @@ class Iris {
      */
     static info = {
         name: 'Iris',
-        version: '1.0.3',
+        version: '1.0.4',
         date: '2025-02-15',
         author: 'Igor Lovrić',
         license: 'MIT'
@@ -162,7 +162,7 @@ class Iris {
 
         const html = `
             <div class="modal fade" id="${modalId}" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog ${this.options.size} ${this.options.centered ? 'modal-dialog-centered' : ''} ${this.options.scrollable ? 'modal-dialog-scrollable' : ''}">
+                <div ${this.options.id?`id="${this.options.id}"`:''} class="modal-dialog ${this.options.size} ${this.options.centered ? 'modal-dialog-centered' : ''} ${this.options.scrollable ? 'modal-dialog-scrollable' : ''}">
                     <div class="modal-content">
                         ${this.options.title ? `
                         <div class="modal-header ${headerClass}">
@@ -643,6 +643,36 @@ class Iris {
         if (button) {
             button.disabled = true;
         }
+    }
+
+    /**
+     * Enables or disables all buttons in the dialog footer
+     *
+     * @param {boolean} enable - If true, enables all buttons. If false, disables all buttons.
+     *
+     * @example
+     * // Disable all buttons
+     * dialog.enableButtons(false);
+     *
+     * @example
+     * // Enable all buttons
+     * dialog.enableButtons(true);
+     *
+     * @example
+     * // Disable during AJAX call
+     * dialog.enableButtons(false);
+     * fetch('/api/save')
+     *     .then(() => dialog.enableButtons(true))
+     *     .catch(() => dialog.enableButtons(true));
+     */
+    enableButtons(enable) {
+        const footer = this.getModalFooter();
+        if (!footer) return;
+
+        const buttons = footer.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.disabled = !enable;
+        });
     }
 
     /**
