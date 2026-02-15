@@ -3,7 +3,7 @@
 
 Flexible library for managing modal dialogs in Bootstrap 5 environments. Written in pure Vanilla JavaScript with no external dependencies.
 
-![Version](https://img.shields.io/badge/version-1.0.6-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-5.x-purple)
 
@@ -20,6 +20,7 @@ This project was inspired by the [bootstrap3-dialog](https://github.com/nakupand
 - [Methods](#methods)
 - [Events](#events)
 - [Multi-modal](#multi-modal)
+- [Minimizing Dialogs](#minimizing-dialogs)
 - [Internationalization](#internationalization)
 
 ---
@@ -109,6 +110,7 @@ Iris.show({
 | `centered`        | boolean     | false                              | Vertical centering (cannot be used with `draggable`)                                  |
 | `scrollable`      | boolean     | false                              | Enable scrolling within body                                                          |
 | `draggable`       | boolean     | false                              | Enable drag & drop (cannot be used with `centered`)                                   |
+| `minimizable`     | boolean     | false                              | Enable minimize of dialog                                                             |
 | `backdrop`        | boolean     | true                               | Show backdrop                                                                         |
 | `closeOnBackdrop` | boolean     | true                               | Close dialog by clicking backdrop                                                     |
 | `keyboard`        | boolean     | true                               | Close dialog with ESC key                                                             |
@@ -382,6 +384,38 @@ dialog.buttonSpinAll(true);   // Start all spinners
 dialog.buttonSpinAll(false);  // Stop all spinners
 ```
 
+### minimize()
+Minimizes the dialog and adds it to the taskbar.
+```javascript
+dialog.minimize();
+```
+
+**Requirements:**
+- Dialog must have `minimizable: true`
+- Cannot minimize if there are other dialogs above it (multi-modal scenario)
+
+**What gets preserved:**
+- Scroll position
+- Form input values
+- Draggable position (if draggable)
+- Dialog state
+
+### restore()
+Restores a minimized dialog to the screen.
+```javascript
+dialog.restore();
+```
+
+The dialog returns to its previous state and position.
+
+### isMinimized()
+Returns whether the dialog is currently minimized.
+```javascript
+if (dialog.isMinimized()) {
+    console.log('Dialog is minimized');
+}
+```
+
 ### loadContent(url, params)
 Loads content via AJAX.
 ```javascript
@@ -434,6 +468,24 @@ onhidden: function(dialogRef) {
 }
 ```
 
+### onminimize
+Called when the dialog is minimized.
+```javascript
+onminimize: function(dialogRef) {
+    console.log('Dialog minimized:', dialogRef.options.title);
+    // Save state, log analytics, etc.
+}
+```
+
+### onrestore
+Called when the dialog is restored from minimized state.
+```javascript
+onrestore: function(dialogRef) {
+    console.log('Dialog restored:', dialogRef.options.title);
+    // Refresh data, re-focus inputs, etc.
+}
+```
+
 ### onContentLoaded
 Called after successful AJAX content loading.
 ```javascript
@@ -481,6 +533,174 @@ Iris.show({
         }
     }]
 });
+```
+---
+## Minimizing Dialogs
+
+Iris supports minimizing dialogs to a floating taskbar. Minimized dialogs preserve their state (scroll position, form data, draggable position) and can be quickly restored.
+
+### Enable Minimizable Dialog
+```javascript
+Iris.show({
+    title: 'Task Manager',
+    message: 'Long form content...',
+    minimizable: true,  // Enable minimize button in header
+    draggable: true,    // Position will be preserved when restored
+    buttons: [{
+        label: 'Save',
+        cssClass: 'btn-primary'
+    }]
+});
+```
+
+Or set globally:
+```javascript
+Iris.defaults.minimizable = true;  // All dialogs can be minimized
+```
+
+### Minimize Button
+
+When `minimizable: true`, a minimize button (−) appears in the modal header, next to the close button.
+```javascript
+Iris.show({
+    title: 'Edit User',
+    minimizable: true,
+    closeButton: true,  // Both minimize and close buttons visible
+    // ...
+});
+```
+
+### Floating Taskbar
+
+When dialogs are minimized, a floating taskbar button appears in the corner of the screen:
+
+- **Badge** shows the number of minimized dialogs
+- **Click** to open the list of minimized dialogs
+- **List** displays all minimized dialogs with their titles and icons
+- **Restore** a dialog by clicking on it in the list
+- **Close** a minimized dialog using the × button in the list
+
+The taskbar automatically:
+- Appears when first dialog is minimized
+- Disappears when all dialogs are closed or restored
+- Manages z-index automatically
+- Preserves backdrop state
+
+### Methods
+
+#### minimize()
+Minimizes the dialog and adds it to the taskbar.
+```javascript
+dialog.minimize();
+```
+
+**Requirements:**
+- Dialog must have `minimizable: true`
+- Cannot minimize if there are other dialogs above it (multi-modal scenario)
+
+**What gets preserved:**
+- Scroll position
+- Form input values
+- Draggable position (if draggable)
+- Dialog state
+
+#### restore()
+Restores a minimized dialog to the screen.
+```javascript
+dialog.restore();
+```
+
+The dialog returns to its previous state and position.
+
+#### isMinimized()
+Returns whether the dialog is currently minimized.
+```javascript
+if (dialog.isMinimized()) {
+    console.log('Dialog is minimized');
+}
+```
+
+### Taskbar Configuration
+
+Customize the floating taskbar appearance and position:
+```javascript
+// Position: 'bottom-right', 'bottom-left', 'top-right', 'top-left'
+Iris.taskbarPosition = 'bottom-right';  // Default
+
+// Distance from screen edge (pixels)
+Iris.taskbarOffset = 20;  // Default
+
+// Z-index (should be very high)
+Iris.taskbarZIndex = 999999;  // Default
+
+// Taskbar button color (any CSS color)
+Iris.taskbarButtonColor = '#6c757d';  // Default (Bootstrap secondary)
+
+// Maximum height of minimized dialogs list (pixels)
+Iris.taskbarMaxHeight = 300;  // Default
+
+// Taskbar button size (pixels)
+Iris.taskbarButtonSize = 60;  // Default
+```
+
+**Example: Move taskbar to top-left with custom color**
+```javascript
+Iris.taskbarPosition = 'top-left';
+Iris.taskbarButtonColor = '#0d6efd';  // Bootstrap primary blue
+Iris.taskbarOffset = 30;
+```
+
+### Events
+
+#### onminimize
+Called when the dialog is minimized.
+```javascript
+onminimize: function(dialogRef) {
+    console.log('Dialog minimized:', dialogRef.options.title);
+    // Save state, log analytics, etc.
+}
+```
+
+#### onrestore
+Called when the dialog is restored from minimized state.
+```javascript
+onrestore: function(dialogRef) {
+    console.log('Dialog restored:', dialogRef.options.title);
+    // Refresh data, re-focus inputs, etc.
+}
+```
+### Styling the Taskbar
+
+You can customize the taskbar appearance by overriding CSS classes:
+```css
+/* Customize taskbar button */
+#irisTaskbarButton {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    width: 70px;
+    height: 70px;
+}
+
+/* Customize badge */
+.iris-taskbar-badge {
+    background: #ff6b6b;
+    font-size: 14px;
+}
+
+/* Customize list items */
+.iris-taskbar-item {
+    border-left: 3px solid transparent;
+}
+
+.iris-taskbar-item:hover {
+    background-color: #e3f2fd;
+    border-left-color: #2196f3;
+}
+
+/* Customize minimize button in header */
+.btn-minimize {
+    font-size: 28px;
+    font-weight: bold;
+}
 ```
 ---
 

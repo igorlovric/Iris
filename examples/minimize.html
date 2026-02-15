@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <meta charset="utf-8">
+
+        <link href="../src/iris.css" rel="stylesheet">
+        <script src="../src/iris.js"></script>
+
+        <script>
+            function getRandomTitle() {
+                const categories = {
+                    user: ['User Profile', 'Edit User', 'User Settings', 'User Permissions'],
+                    product: ['Product Details', 'Add Product', 'Product Catalog', 'Product Reviews'],
+                    order: ['Order Summary', 'New Order', 'Order History', 'Order Tracking'],
+                    system: ['System Settings', 'Configuration', 'API Keys', 'Logs Viewer'],
+                    report: ['Sales Report', 'Analytics', 'Performance Metrics', 'Export Data']
+                };
+
+                const categoryKeys = Object.keys(categories);
+                const randomCategory = categoryKeys[Math.floor(Math.random() * categoryKeys.length)];
+                const titles = categories[randomCategory];
+
+                return titles[Math.floor(Math.random() * titles.length)];
+            }
+
+            function getRandomType() {
+                const dialogs = [ Iris.TYPE_INFO, Iris.TYPE_WARNING, Iris.TYPE_SUCCESS, Iris.TYPE_DANGER, Iris.TYPE_DEFAULT, Iris.TYPE_PRIMARY, Iris.TYPE_INFO, Iris.TYPE_DARK ];
+                return dialogs[Math.floor(Math.random() * dialogs.length)];
+            }
+
+            function getRandomSize() {
+                const dialogs = [ Iris.SIZE_SMALL, Iris.SIZE_NORMAL, Iris.SIZE_LARGE, Iris.SIZE_XLARGE ];
+                return dialogs[Math.floor(Math.random() * dialogs.length)];
+            }
+
+            function showModal() {
+                Iris.show({
+                    title: getRandomTitle(),
+                    message: 'Form content...',
+                    size: getRandomSize(),
+                    type: getRandomType(),
+                    minimizable: true,
+                    draggable: true,
+                    onminimize: function(dialogRef) {
+                        console.log('User minimized the dialog');
+                    },
+                    onrestore: function(dialogRef) {
+                        console.log('User restored the dialog');
+                    },
+                    buttons: [{
+                        label: 'Minimize',
+                        cssClass: 'btn-secondary',
+                        action: function(dialogRef) {
+                            dialogRef.minimize();
+                            return false;
+                        }
+                    }]
+                });
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <button class="btn btn-primary" onclick="showModal();">Show modal</button>
+    </body>
+</html>

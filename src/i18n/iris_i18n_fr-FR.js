@@ -22,6 +22,8 @@ Iris.i18n['fr-FR'] = {
         success: 'Succès',
         info: 'Information',
         loadError: 'Erreur lors du chargement du contenu : {0}',
+        minimizedDialogs: 'Dialogues minimisés',
+        noMinimizedDialogs: 'Aucun dialogue minimisé',
         confirmDelete: 'Êtes-vous sûr de vouloir supprimer cet élément ?',
         confirmAction: 'Êtes-vous sûr de vouloir continuer ?'
     }

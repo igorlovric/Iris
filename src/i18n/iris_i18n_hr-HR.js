@@ -22,6 +22,8 @@ Iris.i18n['hr-HR'] = {
         success: 'Uspjeh',
         info: 'Informacija',
         loadError: 'Greška pri učitavanju sadržaja: {0}',
+        minimizedDialogs: 'Minimizirani dijalozi',
+        noMinimizedDialogs: 'Nema minimiziranih dijaloga',
         confirmDelete: 'Jeste li sigurni da želite obrisati ovu stavku?',
         confirmAction: 'Jeste li sigurni da želite nastaviti?'
     }
