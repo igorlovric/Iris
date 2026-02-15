@@ -13,12 +13,14 @@
                     title: `Dialog`,
                     message: `<p>This is dialog</p>`,
                     draggable: true,
+                    spinIcon: 'fa fa-spinner fa-spin',
                     buttons: [
                         {
                             label: 'Delete',
                             icon: "fa fa-trash",
                             cssClass: 'btn-danger me-auto',
                             disabled: false,
+
                             action: function(dialogRef) {
                                 if (confirm('Really delete?')) {
                                     // Delete logic
@@ -27,11 +29,17 @@
                                 return false; // Prevent auto-close
                             }
                         },{
+                            id: "btn_save",
+                            icon: "fa fa-save",
                             label: 'Save',
                             cssClass: 'btn-primary float-start',
+                            autoSpin: true,
                             action: function(dialogRef, event) {
                                 // Your save logic here
                                 console.log('Save clicked');
+                                setTimeout(()=>{
+                                    dialogRef.buttonSpin('btn_save', false);
+                                }, 1000)
                                 // Return false to keep dialog open
                                 return false;
                             }

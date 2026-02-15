@@ -94,44 +94,45 @@ Iris.show({
 
 ### Basic Options
 
-| Option            | Type        | Default | Description                                          |
-|-------------------|-------------|---------|------------------------------------------------------|
-| `id`              | string      | - | Dialog Id                                            |
-| `title`           | string      | - | Dialog title                                         |
-| `message`         | string/HTML | - | Dialog content                                       |
-| `size`            | constant    | `SIZE_NORMAL` | Dialog size                                          |
-| `type`            | constant    | `TYPE_DEFAULT` | Dialog type/theme (header color)                     |
-| `buttons`         | array       | - | Array of buttons                                     |
-| `centered`        | boolean     | false | Vertical centering (cannot be used with `draggable`) |
-| `scrollable`      | boolean     | false | Enable scrolling within body                         |
-| `draggable`       | boolean     | false | Enable drag & drop (cannot be used with `centered`)  |
-| `backdrop`        | boolean     | true | Show backdrop                                        |
-| `closeOnBackdrop` | boolean     | true | Close dialog by clicking backdrop                    |
-| `keyboard`        | boolean     | true | Close dialog with ESC key                            |
-| `closeButton`     | boolean     | true | Show X button in header                              |
-| `ajaxUrl`         | string      | - | URL for loading content                              |
+| Option            | Type        | Default                            | Description                                                                           |
+|-------------------|-------------|------------------------------------|---------------------------------------------------------------------------------------|
+| `id`              | string      | -                                  | Dialog Id                                                                             |
+| `title`           | string      | -                                  | Dialog title                                                                          |
+| `message`         | string/HTML | -                                  | Dialog content                                                                        |
+| `size`            | constant    | `SIZE_NORMAL`                      | Dialog size                                                                           |
+| `type`            | constant    | `TYPE_DEFAULT`                     | Dialog type/theme (header color)                                                      |
+| `buttons`         | array       | -                                  | Array of buttons                                                                      |
+| `centered`        | boolean     | false                              | Vertical centering (cannot be used with `draggable`)                                  |
+| `scrollable`      | boolean     | false                              | Enable scrolling within body                                                          |
+| `draggable`       | boolean     | false                              | Enable drag & drop (cannot be used with `centered`)                                   |
+| `backdrop`        | boolean     | true                               | Show backdrop                                                                         |
+| `closeOnBackdrop` | boolean     | true                               | Close dialog by clicking backdrop                                                     |
+| `keyboard`        | boolean     | true                               | Close dialog with ESC key                                                             |
+| `closeButton`     | boolean     | true                               | Show X button in header                                                               |
+| `ajaxUrl`         | string      | -                                  | URL for loading content                                                               |
+| `spinIcon`        | string      | `spinner-border spinner-border-sm` | Spinner icon class. If you are using FontAwesome, you can use `fa fa-spinner fa-spin` |
 
 ### Button Options
 
 Each button in the `buttons` array can have the following properties:
 
-| Property    | Type | Default           | Description                                                                                                                           |
-|-------------|------|-------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| `id`        | string | btn_randomString  | Button Id                                                                                                                             |
-| `label`     | string | *required*        | Button text to display                                                                                                                |
-| `icon`      | string | -                 | Icon class (tested with Bootstrap icons & FontAwesome icon pack)                                                                      |
-| `cssClass`  | string | `'btn-secondary'` | Bootstrap button class (e.g., `'btn-primary'`, `'btn-danger'`)                                                                        |
-| `action`    | function | -                 | Callback function when button is clicked. Receives `(dialogRef, event)` as parameters. Return `false` to prevent dialog from closing. |
-| `autoClose` | boolean | `true`            | Automatically close dialog after action completes (if action doesn't return `false`)                                                  |
-| `disabled`  | boolean | `false`           | Whether the button is disabled on render                                                                                              |
-
+| Property     | Type     | Default           | Description                                                                                                                           |
+|--------------|----------|-------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| `id`         | string   | btn_randomString  | Button Id                                                                                                                             |
+| `label`      | string   | *required*        | Button text to display                                                                                                                |
+| `icon`       | string   | -                 | Icon class (tested with Bootstrap icons & FontAwesome icon pack)                                                                      |
+| `cssClass`   | string   | `'btn-secondary'` | Bootstrap button class (e.g., `'btn-primary'`, `'btn-danger'`)                                                                        |
+| `action`     | function | -                 | Callback function when button is clicked. Receives `(dialogRef, event)` as parameters. Return `false` to prevent dialog from closing. |
+| `autoClose`  | boolean  | `true`            | Automatically close dialog after action completes (if action doesn't return `false`)                                                  |
+| `disabled`   | boolean  | `false`           | Whether the button is disabled on render                                                                                              |
+| `autoSpin`   | boolean  | `false`           | Automatically show spinner when button is clicked |
 
 #### Button Action Return Values
 
-| Return Value | Behavior |
-|--------------|----------|
-| `undefined` or `true` | Dialog closes automatically (if `autoClose` is `true`) |
-| `false` | Prevents dialog from closing (useful for validation or async operations) |
+| Return Value          | Behavior                                                                 |
+|-----------------------|--------------------------------------------------------------------------|
+| `undefined` or `true` | Dialog closes automatically (if `autoClose` is `true`)                   |
+| `false`               | Prevents dialog from closing (useful for validation or async operations) |
 
 #### Example
 ```javascript
@@ -167,13 +168,13 @@ buttons: [
 
 ### Events
 
-| Event | Parameters | Description |
-|-------|------------|-------------|
-| `onshow` | `dialogRef` | Called before showing |
-| `onshown` | `dialogRef` | Called after showing |
-| `onhide` | `dialogRef` | Called before closing (can prevent closing) |
-| `onhidden` | `dialogRef` | Called after closing |
-| `onContentLoaded` | `dialogRef` | Called after AJAX content loads |
+| Event             | Parameters  | Description                                 |
+|-------------------|-------------|---------------------------------------------|
+| `onshow`          | `dialogRef` | Called before showing                       |
+| `onshown`         | `dialogRef` | Called after showing                        |
+| `onhide`          | `dialogRef` | Called before closing (can prevent closing) |
+| `onhidden`        | `dialogRef` | Called after closing                        |
+| `onContentLoaded` | `dialogRef` | Called after AJAX content loads             |
 
 ---
 ## Global Configuration
@@ -284,14 +285,22 @@ Changes the dialog type/color.
 dialog.setType(Iris.TYPE_SUCCESS);
 ```
 
-### enableButton(index)
-Enables the button at given index.
+### enableButton(identifier)
+Enables the button.
+
+**Parameters:**
+- `identifier` - Button index (0-based), button ID, or button label
+
 ```javascript
 dialog.enableButton(0); // Enable first button
 ```
 
-### disableButton(index)
-Disables the button at given index.
+### disableButton(identifier)
+Disables the button.
+
+**Parameters:**
+- `identifier` - Button index (0-based), button ID, or button label
+- 
 ```javascript
 dialog.disableButton(0); // Disable first button
 ```
@@ -332,6 +341,41 @@ dialog.enableButtons(true);
 dialog.enableButtons(false);
 fetch('/api/submit')
     .finally(() => dialog.enableButtons(true));
+```
+
+### buttonSpin(identifier, spin)
+Starts or stops a spinner animation on a button. Useful for showing loading state during async operations.
+```javascript
+// Start spinner
+dialog.buttonSpin(0, true);
+
+// Stop spinner
+dialog.buttonSpin(0, false);
+```
+
+**Parameters:**
+- `identifier` - Button index (0-based), button ID, or button label
+- `spin` - `true` to start spinner, `false` to stop
+
+**Common use case:**
+```javascript
+buttons: [{
+    label: 'Save',
+    autoSpin: true,  // Auto-start spinner on click
+    action: function(dialogRef) {
+        fetch('/api/save')
+            .then(() => dialogRef.close())
+            .catch(() => dialogRef.buttonSpin(0, false)); // Stop on error
+        return false;
+    }
+}]
+```
+
+### buttonSpinAll(spin)
+Starts or stops spinner on all buttons simultaneously.
+```javascript
+dialog.buttonSpinAll(true);   // Start all spinners
+dialog.buttonSpinAll(false);  // Stop all spinners
 ```
 
 ### loadContent(url, params)
