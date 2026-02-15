@@ -3,6 +3,10 @@
 
 Flexible library for managing modal dialogs in Bootstrap 5 environments. Written in pure Vanilla JavaScript with no external dependencies.
 
+![Version](https://img.shields.io/badge/version-1.0.6-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Bootstrap](https://img.shields.io/badge/bootstrap-5.x-purple)
+
 ## Credits
 
 This project was inspired by the [bootstrap3-dialog](https://github.com/nakupanda/bootstrap3-dialog) library. While Iris is an independent implementation written specifically for Bootstrap 5, we acknowledge the influence and excellent design patterns established by that project.
