@@ -296,10 +296,42 @@ Disables the button at given index.
 dialog.disableButton(0); // Disable first button
 ```
 
+### setClosable(closable)
+Enables or disables the ability to close the dialog. When set to `false`, disables all closing methods (backdrop click, ESC key, close button, footer buttons). When set back to `true`, restores only the originally enabled closing methods.
+```javascript
+// Prevent closing during processing
+dialog.setClosable(false);
+
+// Restore original closing behavior
+dialog.setClosable(true);
+```
+
+**Common use case:** Prevent users from accidentally closing dialogs during AJAX requests or critical operations.
+```javascript
+dialog.setClosable(false);
+fetch('/api/save')
+    .then(() => {
+        dialog.setClosable(true);
+        dialog.close();
+    })
+    .catch(() => dialog.setClosable(true));
+```
+
 ### enableButtons(enable)
 Enables or disables all buttons in the dialog footer.
 ```javascript
-dialog.enableButtons(false); // Disable buttons
+// Disable all buttons
+dialog.enableButtons(false);
+
+// Enable all buttons
+dialog.enableButtons(true);
+```
+
+**Common use case:** Prevent multiple form submissions during processing.
+```javascript
+dialog.enableButtons(false);
+fetch('/api/submit')
+    .finally(() => dialog.enableButtons(true));
 ```
 
 ### loadContent(url, params)
