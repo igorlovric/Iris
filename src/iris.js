@@ -1,7 +1,9 @@
 /*!
  * Iris v1.1.0
  * Modern dialog manager for Bootstrap 5
- * https://github.com/igorlovric/iris
+ *
+ * Homepage: https://github.com/igorlovric/iris
+ * Demo: https://igorlovric.github.io/iris-examples
  *
  * Copyright (c) 2026 Igor Lovrić
  * Released under the MIT License
