@@ -1,3 +1,12 @@
+/*!
+ * Iris v1.1.0
+ * Modern dialog manager for Bootstrap 5
+ * https://github.com/igorlovric/iris
+ *
+ * Copyright (c) 2026 Igor Lovrić
+ * Released under the MIT License
+ */
+
 class Iris {
     /**
      * Library information
@@ -5,7 +14,7 @@ class Iris {
      */
     static info = {
         name: 'Iris',
-        version: '1.0.6',
+        version: '1.1.0',
         date: '2025-02-15',
         author: 'Igor Lovrić',
         license: 'MIT'
@@ -1604,17 +1613,23 @@ class IrisTaskbar {
      * @private
      */
     static getTypeIcon(type) {
-        const icons = {
-            'primary': '📘',
-            'success': '✅',
-            'info': 'ℹ️',
-            'warning': '⚠️',
-            'danger': '❌',
-            'dark': '⬛',
-            'default': '💬'
+        const colors = {
+            'primary': '#0d6efd',
+            'success': '#198754',
+            'info': '#0dcaf0',
+            'warning': '#ffc107',
+            'danger': '#dc3545',
+            'dark': '#212529',
+            'default': '#6c757d'
         };
 
-        return icons[type] || icons['default'];
+        const color = colors[type] || colors['default'];
+
+        return `
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="2" y="2" width="12" height="12" rx="2" stroke="${color}" stroke-width="2" fill="none"/>
+        </svg>
+        `;
     }
 
     /**
