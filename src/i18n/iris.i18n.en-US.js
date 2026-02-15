@@ -1,10 +1,6 @@
 // DialogManager Internationalization - English (United States)
 // Language code: en-US (ISO 639-1 + ISO 3166-1)
 
-if (typeof Iris === 'undefined') {
-    window.DialogManager = {};
-}
-
 Iris.i18n = Iris.i18n || {};
 
 Iris.i18n['en-US'] = {
@@ -30,6 +26,3 @@ Iris.i18n['en-US'] = {
         confirmAction: 'Are you sure you want to proceed?'
     }
 };
-
-// Set as default if no language is set
-Iris.currentLanguage = Iris.currentLanguage || 'en-US';

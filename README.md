@@ -41,8 +41,8 @@ This project was inspired by the [bootstrap3-dialog](https://github.com/nakupand
 <!-- Main Iris library -->
 <script src="path/to/iris.js"></script>
 
-<!-- Language files (load after iris.js) -->
-<script src="path/to/i18n/iris.i18n.en-US.js"></script>
+<!-- Optional: Language files (load after iris.js) -->
+<script src="path/to/i18n/iris.i18n.sr-RS.js"></script>
 
 <!-- Optional: Iris Theme -->
 <link href="themes/flat/iris-flat.css" rel="stylesheet">

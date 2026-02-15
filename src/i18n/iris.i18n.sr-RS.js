@@ -1,10 +1,6 @@
 // DialogManager Internationalization - Serbian (Serbia)
 // Language code: sr-RS (ISO 639-1 + ISO 3166-1)
 
-if (typeof Iris === 'undefined') {
-    window.DialogManager = {};
-}
-
 Iris.i18n = Iris.i18n || {};
 
 Iris.i18n['sr-RS'] = {
