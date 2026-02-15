@@ -8,20 +8,18 @@ Flexible library for managing modal dialogs in Bootstrap 5 environments. Written
 This project was inspired by the [bootstrap3-dialog](https://github.com/nakupanda/bootstrap3-dialog) library. While Iris is an independent implementation written specifically for Bootstrap 5, we acknowledge the influence and excellent design patterns established by that project.
 ## Table of Contents
 
+- [Examples & Demos](#examples--demos)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Options](#options)
 - [Constants](#constants)
 - [Methods](#methods)
 - [Events](#events)
-- [Usage Examples](#usage-examples)
 - [Multi-modal](#multi-modal)
-- [AJAX Loading](#ajax-loading)
-- [Advanced Techniques](#advanced-techniques)
 - [Internationalization](#internationalization)
 
 ---
-## 🎨 Examples & Demos
+## Examples & Demos
 
 <p align="center">
   <a href="https://igorlovric.github.io/iris-examples">
@@ -41,7 +39,6 @@ Check out our comprehensive examples covering:
 
 **[Explore all examples →](https://igorlovric.github.io/iris-examples)**
 
----
 ---
 
 ## Installation
@@ -196,8 +193,6 @@ dialog.show({
     closeOnBackdrop: true  // This one can close on backdrop
 });
 ```
-
-See [Global Configuration](#global-configuration) for more details.
 ---
 ## Constants
 
@@ -512,8 +507,3 @@ setTimeout(() => {
 
 MIT License
 
----
-## Changelog
-
-### v1.0.0
-- Initial release
