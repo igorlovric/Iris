@@ -3,7 +3,7 @@
 
 Flexible library for managing modal dialogs in Bootstrap 5 environments. Written in pure Vanilla JavaScript with no external dependencies.
 
-![Version](https://img.shields.io/badge/version-1.1.1-blue)
+![Version](https://img.shields.io/badge/version-1.1.2-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-5.x-purple)
 
@@ -117,6 +117,7 @@ Iris.show({
 | `closeButton`     | boolean     | true                               | Show X button in header                                                               |
 | `ajaxUrl`         | string      | -                                  | URL for loading content                                                               |
 | `spinIcon`        | string      | `spinner-border spinner-border-sm` | Spinner icon class. If you are using FontAwesome, you can use `fa fa-spinner fa-spin` |
+| `thene`           | string      | -                                  | Theme to apply (eg. 'flat')                                                           |
 
 ### Button Options
 
