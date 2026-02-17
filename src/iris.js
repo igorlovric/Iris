@@ -182,11 +182,12 @@ class Iris {
 
         // Minimize button (if enabled)
         const minimizeButton = this.options.minimizable ?
-            '<button type="button" class="btn-minimize" aria-label="Minimize"><span>−</span></button>' : '';
+            '<button type="button" class="btn-minimize" aria-label="Minimize"><span style="font-weight: 1000 !important;">&lowbar;</span></button>' : '';
 
         // Close button
+        const closeBtnClass = this.getCloseBtnClass();
         const closeButton = this.options.closeButton !== false ?
-            `<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="${Iris.t('close')}"></button>` : '';
+            `<button type="button" class="btn-close ${closeBtnClass}" data-bs-dismiss="modal" aria-label="${Iris.t('close')}"></button>` : '';
 
         // Select CSS class for type
         const headerClass = this.getHeaderClass();
@@ -246,6 +247,24 @@ class Iris {
         const darkTextTypes = ['warning'];
         if (this.options.type === 'default') { return ''; }
         return darkTextTypes.includes(this.options.type) ? 'text-dark' : 'text-white';
+    }
+
+    /**
+     * Returns the appropriate close button class based on dialog type
+     *
+     * @returns {string} CSS class for close button
+     * @private
+     */
+    getCloseBtnClass() {
+        // For light backgrounds use default (black) close button
+        const lightTypes = ['default', 'warning'];
+
+        if (lightTypes.includes(this.options.type)) {
+            return '';
+        }
+
+        // For dark backgrounds use white close button
+        return 'btn-close-white';
     }
 
     renderButtons() {
@@ -587,7 +606,6 @@ class Iris {
      */
     setType(type) {
         const header = this.getModalHeader();
-        console.log(header);
         if (header) {
             header.classList.remove('bg-primary', 'bg-success', 'bg-info', 'bg-warning', 'bg-danger', 'bg-dark');
 
@@ -600,7 +618,7 @@ class Iris {
             this.options.type = type;
             const headerClass = this.getHeaderClass();
             const textClass = this.getHeaderTextClass();
-            const btnCloseClass=textClass=='text-dark'?' ':'btn-close-white';
+            const closeBtnClass = this.getCloseBtnClass();
 
             if (headerClass) {
                 header.classList.add(headerClass);
@@ -608,9 +626,11 @@ class Iris {
             if (title && textClass) {
                 title.classList.add(...textClass.split(' '));
             }
-            if (closeBtn && btnCloseClass) {
+            if (closeBtn) {
                 closeBtn.classList.remove('btn-close-white');
-                closeBtn.classList.add(...btnCloseClass.split(' '));
+                if (closeBtnClass) {
+                    closeBtn.classList.add(closeBtnClass);
+                }
             }
         }
     }
@@ -1574,7 +1594,7 @@ class IrisTaskbar {
                     <div class="iris-taskbar-item-content">
                         <p class="iris-taskbar-item-title">${title}</p>
                     </div>
-                    <button class="iris-taskbar-item-close" data-index="${index}" data-action="close">×</button>
+                    <button class="iris-taskbar-item-close" data-index="${index}" data-action="close">&times;</button>
                 </div>
             `;
         });
