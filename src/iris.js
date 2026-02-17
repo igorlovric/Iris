@@ -17,7 +17,7 @@ class Iris {
     static info = {
         name: 'Iris',
         version: '1.1.1',
-        date: '2025-02-15',
+        date: '2025-02-17',
         author: 'Igor Lovrić',
         license: 'MIT'
     };
